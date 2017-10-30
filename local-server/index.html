@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>Local Failures</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+</head>
+<body>
+<table>
+	<thead>
+		<th>Title</th><th>Year</th><th>Rating</th><th><th>Plot</th>
+	</thead>
+	<tbody>
+	</tbody>
+</table>
+</body>
+<script>
+$(function() {
+	//using set timeout because it will take a few seconds for the chrome extension to load the other pages and run the scripts to post the data to the local /api/movies server
+	setTimeout(function() {
+
+		$.get("/api/movies", function( data ) {
+			var str = "";
+			var movies = JSON.parse(data.movies);
+			console.log("movies: " , movies);
+			for(var movie in movies) {
+				console.log("Movie: ", movies[movie]);
+				str = str + "<tr><td>";
+				str = str + movies[movie].title + "</td><td>";
+				str = str + movies[movie].year + "</td><td>";
+				str = str + movies[movie].info.rating + "</td><td>";
+				str = str + movies[movie].info.plot + "</td></tr>";
+			}
+			$("tbody").html(str);
+		});
+
+	}, 5000);
+	
+});
+</script>
+</html>

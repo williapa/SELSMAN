@@ -1,0 +1,23 @@
+{
+  "name": "Open Tabs",
+  "version": "1.0",
+  "manifest_version": 2,
+  "description": "opens tabs",
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "content_scripts": [
+    {
+      "matches": ["http://www.imdb.com/title/*"],
+      "js": ["scrape.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "browser_action": {
+    "default_title": "OpenTabs"
+  },
+  "permissions": [
+    "tabs",
+    "storage"
+  ]
+}
